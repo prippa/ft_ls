@@ -10,10 +10,11 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "ft_ls.h"
 
 int main(void)
 {
+	ft_printf("Hello World!\n");
 	ft_printf("Hello World!\n");
 	return (0);
 }
