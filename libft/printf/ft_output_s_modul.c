@@ -5,57 +5,53 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: prippa <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/01/05 14:01:19 by prippa            #+#    #+#             */
-/*   Updated: 2018/01/05 14:01:20 by prippa           ###   ########.fr       */
+/*   Created: 2018/01/15 13:09:49 by prippa            #+#    #+#             */
+/*   Updated: 2018/01/15 13:09:55 by prippa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-static int	ft_rules(t_flag *flg, int len, int size, int print)
+static void	ft_rules(t_printf *fpf, int len, int print)
 {
-	if (!ft_strlen(flg->str))
+	if (!ft_strlen(fpf->str))
 	{
 		len = 0;
 		print = 0;
 	}
-	if (print && flg->flag[F_MINUS] && !(print = 0))
-		size += write(1, flg->str, len);
-	if (flg->width)
+	if (print && fpf->flag[F_MINUS] && !(print = 0))
+		ft_pf_strjoin(fpf, fpf->str, len);
+	if (fpf->width)
 	{
-		if (flg->flag[F_ZERO] && !flg->flag[F_MINUS])
-			size += ft_print_width(flg->width - len, '0');
+		if (fpf->flag[F_ZERO] && !fpf->flag[F_MINUS])
+			ft_charjoin(fpf, fpf->width - len, '0');
 		else
-			size += ft_print_width(flg->width - len, ' ');
+			ft_charjoin(fpf, fpf->width - len, ' ');
 	}
 	if (print)
-		size += write(1, flg->str, len);
-	return (size);
+		ft_pf_strjoin(fpf, fpf->str, len);
 }
 
-int			ft_output_s_modul(t_flag *flg)
+void		ft_output_s_modul(t_printf *fpf)
 {
 	int	len;
-	int	size;
 	int	print;
 
-	len = ft_strlen(flg->str);
-	if (flg->precision < 0)
-		flg->precision = 0;
-	else if (flg->precision)
+	len = ft_strlen(fpf->str);
+	if (fpf->precision < 0)
+		fpf->precision = 0;
+	else if (fpf->precision)
 	{
-		if (FC == 'S' && !ft_isascii(flg->str[flg->precision - 1]))
+		if (FC == 'S' && !ft_isascii(fpf->str[fpf->precision - 1]))
 		{
-			while (flg->precision % 3 > 0)
-				flg->precision--;
+			while (fpf->precision % 3 > 0)
+				fpf->precision--;
 		}
-		if (len > (int)flg->precision)
-			len = flg->precision;
+		if (len > fpf->precision)
+			len = fpf->precision;
 	}
-	else if (flg->flag[F_DOT])
-		len = flg->precision;
-	size = 0;
+	else if (fpf->flag[F_DOT])
+		len = fpf->precision;
 	print = 1;
-	size += ft_rules(flg, len, size, print);
-	return (size);
+	ft_rules(fpf, len, print);
 }

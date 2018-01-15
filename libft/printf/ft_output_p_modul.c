@@ -5,59 +5,53 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: prippa <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/01/07 12:01:12 by prippa            #+#    #+#             */
-/*   Updated: 2018/01/07 12:01:15 by prippa           ###   ########.fr       */
+/*   Created: 2018/01/15 13:09:36 by prippa            #+#    #+#             */
+/*   Updated: 2018/01/15 13:09:39 by prippa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-static int	ft_base_p_modul_logic(t_flag *flg, int len)
+static void		ft_base_p_modul_logic(t_printf *fpf, int len)
 {
-	int	size;
 	int	flag;
 
-	size = 0;
-	flg->width -= 2;
+	fpf->width -= 2;
 	flag = 1;
-	if (flg->width)
+	if (fpf->width)
 	{
-		if (flg->flag[F_ZERO] && !flg->precision)
+		if (fpf->flag[F_ZERO] && !fpf->precision)
 		{
 			flag = 0;
-			size += write(1, "0x", 2);
-			size += ft_print_width(flg->width - len, '0');
+			ft_pf_strjoin(fpf, "0x", 2);
+			ft_charjoin(fpf, fpf->width - len, '0');
 		}
 		else
-			size += ft_print_width(flg->width - MAX(len, flg->precision), ' ');
+			ft_charjoin(fpf, fpf->width - MAX(len, fpf->precision), ' ');
 	}
 	if (flag)
-		size += write(1, "0x", 2);
-	if (flg->precision)
-		size += ft_print_width(flg->precision - len, '0');
-	size += write(1, flg->str, len);
-	return (size);
+		ft_pf_strjoin(fpf, "0x", 2);
+	if (fpf->precision)
+		ft_charjoin(fpf, fpf->precision - len, '0');
+	ft_pf_strjoin(fpf, fpf->str, len);
 }
 
-int			ft_output_p_modul(t_flag *flg)
+void			ft_output_p_modul(t_printf *fpf)
 {
 	int	len;
-	int	size;
 
-	len = ft_strlen(flg->str);
-	size = 0;
-	if (flg->flag[F_DOT] && !flg->precision && flg->str[0] == '0')
+	len = ft_strlen(fpf->str);
+	if (fpf->flag[F_DOT] && !fpf->precision && fpf->str[0] == '0')
 		len = 0;
-	if (flg->flag[F_MINUS])
+	if (fpf->flag[F_MINUS])
 	{
-		size += write(1, "0x", 2);
-		if (flg->precision)
-			size += ft_print_width(flg->precision - len, '0');
-		size += write(1, flg->str, len);
-		if (flg->width)
-			size += ft_print_width(flg->width - size, ' ');
+		ft_pf_strjoin(fpf, "0x", 2);
+		if (fpf->precision)
+			ft_charjoin(fpf, fpf->precision - len, '0');
+		ft_pf_strjoin(fpf, fpf->str, len);
+		if (fpf->width)
+			ft_charjoin(fpf, fpf->width - MAX(len, fpf->precision) - 2, ' ');
 	}
 	else
-		size += ft_base_p_modul_logic(flg, len);
-	return (size);
+		ft_base_p_modul_logic(fpf, len);
 }

@@ -1,18 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_print_p.c                                       :+:      :+:    :+:   */
+/*   ft_charjoin.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: prippa <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/01/02 12:12:53 by prippa            #+#    #+#             */
-/*   Updated: 2018/01/02 12:12:56 by prippa           ###   ########.fr       */
+/*   Created: 2018/01/15 12:57:21 by prippa            #+#    #+#             */
+/*   Updated: 2018/01/15 12:57:23 by prippa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-char	*ft_get_p(t_printf *fpf)
+void	ft_charjoin(t_printf *fpf, int n, char c)
 {
-	return (ft_itoa_base(va_arg(fpf->args, unsigned long int), 16, 87));
+	char	*str;
+	int		size;
+
+	size = n;
+	if (n < 1)
+		return ;
+	if (!(str = (char *)malloc(sizeof(char) * n + 1)))
+		return ;
+	str[n] = '\0';
+	while (--n >= 0)
+		str[n] = c;
+	ft_pf_strjoin(fpf, str, size);
+	free(str);
 }

@@ -5,120 +5,108 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: prippa <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/01/05 16:11:02 by prippa            #+#    #+#             */
-/*   Updated: 2018/01/05 16:11:03 by prippa           ###   ########.fr       */
+/*   Created: 2018/01/15 13:08:50 by prippa            #+#    #+#             */
+/*   Updated: 2018/01/15 13:08:53 by prippa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-static int		ft_print_d_modul(t_flag *flg, int len, int len2)
+static void		ft_print_d_modul(t_printf *fpf, int len, int len2)
 {
-	int	size;
-
-	size = 0;
 	if (len < len2)
-		size += write(1, flg->str + 1, len);
+		ft_pf_strjoin(fpf, fpf->str + 1, len);
 	else
-		size += write(1, flg->str, len);
-	return (size);
+		ft_pf_strjoin(fpf, fpf->str, len);
 }
 
-static int		ft_print_if_psm(t_flag *flg, int *len, int *flag)
+static void		ft_print_if_psm(t_printf *fpf, int *len, int *flag)
 {
-	int	size;
-
-	size = 0;
 	if (*flag)
 	{
-		if (flg->flag[F_PLUS] && flg->str[0] != '-' && !(*flag = 0))
-			size += write(1, "+", 1);
-		else if (flg->str[0] == '-' && !(*flag = 0))
+		if (fpf->flag[F_PLUS] && fpf->str[0] != '-' && !(*flag = 0))
+			ft_charjoin(fpf, 1, '+');
+		else if (fpf->str[0] == '-' && !(*flag = 0))
 		{
-			size += write(1, "-", 1);
+			ft_charjoin(fpf, 1, '-');
 			*len -= 1;
 		}
-		else if (flg->flag[F_SPACE] && !(*flag = 0))
-			size += write(1, " ", 1);
+		else if (fpf->flag[F_SPACE] && !(*flag = 0))
+			ft_charjoin(fpf, 1, ' ');
 	}
-	return (size);
 }
 
-static void		ft_base_d_modul_logic(t_flag *flg, int len,
-	int *size, int flag)
+static void		ft_base_d_modul_logic(t_printf *fpf, int len, int flag)
 {
 	int tmp;
 
-	if (flg->width)
+	if (fpf->width)
 	{
-		if (flg->flag[F_ZERO] && !flg->precision)
+		if (fpf->flag[F_ZERO] && !fpf->precision)
 		{
 			tmp = len;
-			*size += ft_print_if_psm(flg, &len, &flag);
-			*size += ft_print_width(flg->width - tmp, '0');
+			ft_print_if_psm(fpf, &len, &flag);
+			ft_charjoin(fpf, fpf->width - tmp, '0');
 		}
 		else
-			*size += ft_print_width(flg->width - MAX(len, flg->precision), ' ');
+			ft_charjoin(fpf, fpf->width - MAX(len, fpf->precision), ' ');
 	}
-	if (flg->precision)
+	if (fpf->precision)
 	{
-		*size += ft_print_if_psm(flg, &len, &flag);
-		*size += ft_print_width(flg->precision - len, '0');
-		*size += ft_print_d_modul(flg, len, ft_strlen(flg->str));
+		ft_print_if_psm(fpf, &len, &flag);
+		ft_charjoin(fpf, fpf->precision - len, '0');
+		ft_print_d_modul(fpf, len, ft_strlen(fpf->str));
 	}
 	else
 	{
-		*size += ft_print_if_psm(flg, &len, &flag);
-		*size += ft_print_d_modul(flg, len, ft_strlen(flg->str));
+		ft_print_if_psm(fpf, &len, &flag);
+		ft_print_d_modul(fpf, len, ft_strlen(fpf->str));
 	}
 }
 
-static int		ft_logic_d_with_minus(t_flag *flg, int len)
+static void		ft_logic_d_with_minus(t_printf *fpf, int len)
 {
 	int	size;
 
 	size = 0;
-	if (flg->flag[F_PLUS] && flg->str[0] != '-')
-		size += write(1, "+", 1);
-	else if (flg->str[0] == '-')
+	if (fpf->flag[F_PLUS] && fpf->str[0] != '-' && (size += 1))
+		ft_charjoin(fpf, 1, '+');
+	else if (fpf->str[0] == '-' && (size += 1))
 	{
-		size += write(1, "-", 1);
+		ft_charjoin(fpf, 1, '-');
 		len--;
 	}
-	else if (flg->flag[F_SPACE])
-		size += write(1, " ", 1);
-	if (flg->precision)
-		size += ft_print_width(flg->precision - len, '0');
-	size += ft_print_d_modul(flg, len, ft_strlen(flg->str));
-	if (flg->width)
-		size += ft_print_width(flg->width - size, ' ');
-	return (size);
+	else if (fpf->flag[F_SPACE] && (size += 1))
+		ft_charjoin(fpf, 1, ' ');
+	if (fpf->precision)
+		ft_charjoin(fpf, fpf->precision - len, '0');
+	ft_print_d_modul(fpf, len, ft_strlen(fpf->str));
+	if (fpf->width)
+		ft_charjoin(fpf, fpf->width - MAX(len, fpf->precision) - size, ' ');
 }
 
-int				ft_output_d_modul(t_flag *flg)
+void			ft_output_d_modul(t_printf *fpf)
 {
 	int	len;
-	int	size;
 
-	len = ft_strlen(flg->str);
-	size = 0;
-	if (flg->precision < 0 && (flg->precision = flg->width))
-		flg->width = 0;
-	if (flg->flag[F_DOT] && flg->flag[F_ZERO] && !flg->precision)
-		flg->flag[F_ZERO] = '\0';
-	if (flg->str[0] == '0' && flg->flag[F_DOT])
+	len = ft_strlen(fpf->str);
+	if (fpf->precision < 0 && (fpf->precision = fpf->width))
+		fpf->width = 0;
+	if (fpf->flag[F_DOT] && fpf->flag[F_ZERO] && !fpf->precision)
+		fpf->flag[F_ZERO] = '\0';
+	if (fpf->str[0] == '0' && fpf->flag[F_DOT])
 		len = 0;
-	if (flg->flag[F_MINUS])
-		size += ft_logic_d_with_minus(flg, len);
+	if (fpf->flag[F_MINUS])
+		ft_logic_d_with_minus(fpf, len);
 	else
 	{
-		if (flg->width && !flg->flag[F_MINUS]
-		&& ((flg->flag[F_PLUS] && flg->str[0] != '-')
-		|| flg->flag[F_SPACE] || (flg->precision == len && flg->str[0] == '-')
-		|| (flg->str[0] == '-' && !flg->flag[F_ZERO]
-		&& flg->precision && flg->precision > len)))
-			flg->width--;
-		ft_base_d_modul_logic(flg, len, &size, 1);
+		if (fpf->width && !fpf->flag[F_MINUS]
+		&& ((fpf->flag[F_PLUS] && fpf->str[0] != '-')
+		|| (fpf->flag[F_SPACE] && fpf->str[0] != '-')
+		|| (fpf->precision == len && fpf->str[0] == '-')
+		|| (fpf->str[0] == '-' && !fpf->flag[F_ZERO]
+		&& fpf->precision && fpf->precision > len)))
+			fpf->width--;
+		ft_base_d_modul_logic(fpf, len, 1);
 	}
-	return (size);
 }

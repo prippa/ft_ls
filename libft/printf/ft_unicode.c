@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: prippa <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/01/02 15:59:30 by prippa            #+#    #+#             */
-/*   Updated: 2018/01/02 15:59:36 by prippa           ###   ########.fr       */
+/*   Created: 2018/01/15 13:11:54 by prippa            #+#    #+#             */
+/*   Updated: 2018/01/15 13:11:57 by prippa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,10 @@ static int		ft_wcharlen(wchar_t wc)
 		return (1);
 	else if (wc <= 0x7ff)
 		return (2);
-	else
+	else if (wc <= 0xffff)
 		return (3);
+	else
+		return (4);
 }
 
 static size_t	ft_wstrlen(wchar_t *ws)
@@ -87,8 +89,9 @@ char			*ft_wstr_to_str(wchar_t *ws)
 	if (!ws)
 		return (NULL);
 	len = ft_wbytelen(ws);
-	if (!(fresh = ft_strnew(len)))
+	if (!(fresh = (char *)malloc(sizeof(char) * len + 1)))
 		return (NULL);
+	fresh[len] = '\0';
 	len = 0;
 	i = 0;
 	while (ws[i])

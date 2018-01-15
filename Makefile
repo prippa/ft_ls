@@ -6,7 +6,7 @@
 #    By: prippa <marvin@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/13 14:20:39 by prippa            #+#    #+#              #
-#    Updated: 2017/11/13 14:21:04 by prippa           ###   ########.fr        #
+#    Updated: 2018/01/15 14:29:46 by prippa           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -44,12 +44,10 @@ C_LIBFT		= 	ft_atoi.c ft_bzero.c ft_isalnum.c ft_isalpha.c\
 			ft_strtrim.c ft_tolower.c ft_tostrlowercase.c ft_tostruppercase.c\
 			ft_toupper.c ft_itoa_base.c get_next_line.c
 
-C_FPF		= 	ft_printf.c ft_unicode.c\
-				ft_conv_sig_int.c ft_conv_unsig_int.c\
+C_FPF		= 	ft_pf_strjoin.c ft_charjoin.c\
+				ft_printf.c ft_unicode.c ft_conv_sig_int.c ft_conv_unsig_int.c\
 				ft_get_flags.c ft_get_type.c\
-				ft_get_p.c ft_get_oux.c\
-				ft_get_di.c ft_get_c.c ft_get_s.c\
-				ft_print_width.c\
+				ft_get_oux.c ft_get_di.c ft_get_c.c ft_get_s.c\
 				ft_output_c_modul.c ft_output_s_modul.c ft_output_d_modul.c\
 				ft_output_u_modul.c ft_output_ox_modul.c\
 				ft_output_p_modul.c
@@ -77,7 +75,7 @@ $(NAME): obj $(OBJ)
 	@ar rc $(LIBRARY) $(OBJ)
 	@ranlib $(LIBRARY)
 	@echo "Compiling" [ $(LIBRARY) ]
-	@$(CC) -o $(NAME) $(OBJ) -lm -L $(LIBRARY)
+	@$(CC) -o $(NAME) $(OBJ) -lm $(LIBRARY)
 	@echo "Compiling" [ $(NAME) ]
 
 obj:
