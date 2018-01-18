@@ -52,7 +52,7 @@ C_FPF		= 	ft_pf_strjoin.c ft_charjoin.c\
 				ft_output_u_modul.c ft_output_ox_modul.c\
 				ft_output_p_modul.c
 
-C_LS		=	main.c
+C_LS		=	main.c ls_show.c
 
 
 
@@ -90,7 +90,7 @@ $(DIR_OBJ)%.o: $(DIR_FPF)%.c $(INC_FPF)
 	@echo "Linking" [ $< ]
 
 $(DIR_OBJ)%.o: %.c $(HEAD_LS)
-	@$(CC) $(FLAGS) $(INC) -c -o $@ $<
+	@$(CC) $(INC) -c -o $@ $<
 	@echo "Linking" [ $< ]
 
 clean:
