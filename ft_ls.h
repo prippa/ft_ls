@@ -16,11 +16,15 @@
 # include <grp.h>
 # include <pwd.h>
 
+# define FILE_NAME_SIZE 255
+
 typedef struct			s_ls
 {
 	char				**file_name;
+	char				*path;
 }						t_ls;
 
 void					ls_show_dir(char *path);
+void					ls_base_sort(t_ls *ls);
 
 #endif

@@ -1,22 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_arrlen.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: prippa <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/01/08 17:54:06 by prippa            #+#    #+#             */
-/*   Updated: 2018/01/08 17:54:08 by prippa           ###   ########.fr       */
+/*   Created: 2018/01/19 12:50:38 by prippa            #+#    #+#             */
+/*   Updated: 2018/01/19 12:52:44 by prippa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_ls.h"
+#include "libft.h"
 
-int		main(int argc, char **argv)
+size_t	ft_arrlen(char **arr)
 {
-	if (argc == 1)
-		ls_show_dir(".");
-	else
-		ls_show_dir(argv[1]);
-	return (0);
+	size_t len;
+
+	len = 0;
+	while (arr[len])
+		len++;
+	return (len);
 }

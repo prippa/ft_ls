@@ -26,7 +26,7 @@ HEAD_LIBFT	=	libft.h get_next_line.h
 HEAD_FPF	=	ft_printf.h
 HEAD_LS		=	ft_ls.h
 
-C_LIBFT		= 	ft_atoi.c ft_bzero.c ft_isalnum.c ft_isalpha.c\
+C_LIBFT		= 	ft_arrlen.c ft_atoi.c ft_bzero.c ft_isalnum.c ft_isalpha.c\
 			ft_isascii.c ft_isdigit.c ft_islowercase.c ft_isprint.c ft_isspace.c\
 			ft_isstralpha.c ft_isstrdigit.c ft_isstrlowercase.c ft_isstruppercase.c\
 			ft_isuppercase.c ft_itoa.c ft_lstadd.c ft_lstdel.c ft_lstdelone.c\
@@ -52,7 +52,7 @@ C_FPF		= 	ft_pf_strjoin.c ft_charjoin.c\
 				ft_output_u_modul.c ft_output_ox_modul.c\
 				ft_output_p_modul.c
 
-C_LS		=	main.c ls_show.c
+C_LS		=	main.c ls_show.c ls_sorting_algo.c
 
 
 
