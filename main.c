@@ -15,8 +15,11 @@
 int		main(int argc, char **argv)
 {
 	if (argc == 1)
-		ls_show_dir(".");
+	{
+		ls_print(".");
+		return (0);
+	}
 	else
-		ls_show_dir(argv[1]);
+		ls_print(argv[1]);
 	return (0);
 }

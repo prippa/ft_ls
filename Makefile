@@ -13,7 +13,7 @@
 NAME		=	ft_ls
 LIBRARY		=	libft.a
 
-FLAGS		= 	-Wall -Werror -Wextra
+# FLAGS		= 	-Wall -Werror -Wextra
 
 CC			=	gcc
 
@@ -52,7 +52,7 @@ C_FPF		= 	ft_pf_strjoin.c ft_charjoin.c\
 				ft_output_u_modul.c ft_output_ox_modul.c\
 				ft_output_p_modul.c
 
-C_LS		=	main.c ls_show.c ls_sorting_algo.c
+C_LS		=	main.c ls_print.c ls_sorting_algo.c ls_readdir.c ls_free.c
 
 
 
@@ -90,7 +90,7 @@ $(DIR_OBJ)%.o: $(DIR_FPF)%.c $(INC_FPF)
 	@echo "Linking" [ $< ]
 
 $(DIR_OBJ)%.o: %.c $(HEAD_LS)
-	@$(CC) $(INC) -c -o $@ $<
+	@$(CC) $(FLAGS) $(INC) -c -o $@ $<
 	@echo "Linking" [ $< ]
 
 clean:
