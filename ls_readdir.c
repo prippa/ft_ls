@@ -25,35 +25,36 @@ static void	ls_file_count(t_ls *ls, DIR *directory, struct dirent *dp)
 	}
 	ls->file_name = (char **)malloc(sizeof(char *) * len + 1);
 	ls->file_name[len] = NULL;
-	I = 0;
-	while (I < len)
+	LI = 0;
+	while (LI < len)
 	{
 		FNI = (char *)malloc(sizeof(char) * FILE_NAME_SIZE + 1);
-		ls->file_name[I][FILE_NAME_SIZE] = '\0';
-		I++;
+		ls->file_name[LI][FILE_NAME_SIZE] = '\0';
+		LI++;
 	}
 	closedir(directory);
 }
 
-void		ls_readdir(t_ls *ls, DIR *directory, char *path)
+int			ls_readdir(t_ls *ls, DIR *directory, char *path)
 {
 	struct dirent	*dp;
 
 	dp = readdir(directory);
 	if (!dp)
-		return ;
+		return (0);
 	ls_file_count(ls, directory, dp);
 	directory = opendir(path);
 	dp = readdir(directory);
-	I = 0;
+	LI = 0;
 	while (dp)
 	{
 		if (dp->d_name[0] != '.')
 		{
 			ft_strcpy(FNI, dp->d_name);
-			I++;
+			LI++;
 		}
 		dp = readdir(directory);
 	}
 	closedir(directory);
+	return (1);
 }

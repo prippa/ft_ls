@@ -12,26 +12,28 @@
 
 #include "ft_ls.h"
 
-void	ls_base_sort(t_ls *ls)
+void	ls_base_sort(char ***arr)
 {
+	int		i;
+	int		j;
 	char	buf[FILE_NAME_SIZE + 1];
 	int		len;
 
-	len = ft_arrlen(ls->file_name);
-	I = 0;
-	while (I < len)
+	len = ft_arrlen(*arr);
+	i = 0;
+	while (i < len)
 	{
-		J = 0;
-		while (J < len - 1)
+		j = 0;
+		while (j < len - 1)
 		{
-			if (ft_strcmp(ls->file_name[J], ls->file_name[J + 1]) > 0)
+			if (ft_strcmp((*arr)[j], (*arr)[j + 1]) > 0)
 			{
-				ft_strcpy(buf, ls->file_name[J]);
-				ft_strcpy(ls->file_name[J], ls->file_name[J + 1]);
-				ft_strcpy(ls->file_name[J + 1], buf);
+				ft_strcpy(buf, (*arr)[j]);
+				ft_strcpy((*arr)[j], (*arr)[j + 1]);
+				ft_strcpy((*arr)[j + 1], buf);
 			}
-			J++;
+			j++;
 		}
-		I++;
+		i++;
 	}
 }

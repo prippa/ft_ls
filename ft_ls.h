@@ -28,12 +28,20 @@
 # include <pwd.h>
 
 # define FILE_NAME_SIZE 255
-# define I ls->i
-# define J ls->j
-# define FNI ls->file_name[I]
-# define FNJ ls->file_name[I][J]
-
 # define LS_FLAG_SIZE 5
+# define LS_MODE_SIZE 11
+# define LI ls->i
+# define LJ ls->j
+# define PI pth->i
+# define PJ pth->j
+# define FNI ls->file_name[LI]
+# define FNJ ls->file_name[LI][LJ]
+
+# define R_BIG 0
+# define R_MINI 1
+# define A_MINI 2
+# define L_MINI 3
+# define T_MINI 4
 
 typedef struct			s_ls
 {
@@ -42,17 +50,21 @@ typedef struct			s_ls
 	int					j;
 }						t_ls;
 
-typedef struct			s_lsflag
+typedef struct			s_lspath
 {
 	char				flags[LS_FLAG_SIZE];
-	char				*path;
+	char				**files;
+	char				**dirs;
+	char				**e_files;
 	int					i;
 	int					j;
-}						t_lsflag;
+}						t_lspath;
 
-void					ls_print(char *path);
-void					ls_base_sort(t_ls *ls);
-void					ls_readdir(t_ls *ls, DIR *directory, char *path);
-void					ls_free(t_ls *ls);
+void					ls_get_args(t_lspath *pth, char **argv);
+
+int						ls_print_dir(char *path);
+int						ls_print_file(char *path);
+void					ls_base_sort(char ***arr);
+int						ls_readdir(t_ls *ls, DIR *directory, char *path);
 
 #endif

@@ -1,34 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_show.c                                          :+:      :+:    :+:   */
+/*   ft_arr_free.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: prippa <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/01/18 15:47:31 by prippa            #+#    #+#             */
-/*   Updated: 2018/01/18 15:47:33 by prippa           ###   ########.fr       */
+/*   Created: 2018/01/22 14:29:03 by prippa            #+#    #+#             */
+/*   Updated: 2018/01/22 14:29:05 by prippa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_ls.h"
+#include "libft.h"
 
-void			ls_print(char *path)
+void	ft_arr_free(char ***arr)
 {
-	t_ls			ls;
-	DIR				*directory;
+	int len;
 
-	if (!(directory = opendir(path)))
-		ft_printf("ls: %s: No such file or directory\n", path);
-	else
-	{
-		ls_readdir(&ls, directory, path);
-		ls_base_sort(&ls);
-		ls.i = 0;
-		while (ls.file_name[ls.i])
-		{
-			ft_printf("%s\n", ls.file_name[ls.i]);
-			ls.i++;
-		}
-		ls_free(&ls);
-	}
+	len = ft_arrlen(*arr);
+	while (--len >= 0)
+		free((*arr)[len]);
+	free(*arr);
 }

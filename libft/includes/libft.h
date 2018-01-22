@@ -31,7 +31,6 @@ void				*ft_memmove(void *dst, const void *src, size_t len);
 void				*ft_memchr(const void *s, int c, size_t n);
 int					ft_memcmp(const void *s1, const void *s2, size_t n);
 size_t				ft_strlen(const char *s);
-size_t				ft_arrlen(char **arr);
 char				*ft_strdup(const char *s1);
 char				*ft_strcpy(char *dst, const char *src);
 char				*ft_strncpy(char *dst, const char *src, size_t len);
@@ -97,5 +96,7 @@ char				*ft_tostrlowercase(const char *str);
 char				*ft_tostruppercase(const char *str);
 char				*ft_itoa_base(unsigned long long int num,
 					int base, int letter);
+size_t				ft_arrlen(char **arr);
+void				ft_arr_free(char ***arr);
 
 #endif
