@@ -12,25 +12,42 @@
 
 #include "ft_ls.h"
 
-int		main(int argc, char **argv)
+static void		ls_lobi(t_lspath *pth)
+{
+	PI = 0;
+	while (pth->e_path[PI])
+	{
+		if (ls_isname_toolong(pth->e_path[PI]))
+			ft_printf("ls: %s: File name too long\n", pth->e_path[PI]);
+		else
+			ft_printf("ls: %s: No such file or directory\n", pth->e_path[PI]);
+		PI++;
+	}
+	PI = 0;
+	while (pth->files[PI])
+		ls_print_file(pth->files[PI++]);
+	PI = 0;
+	if (pth->files || pth->e_path)
+		ft_printf("\n%s:\n", pth->dirs[PI]);
+	while (pth->dirs[PI])
+	{
+		ls_print_dir(pth->dirs[PI]);
+		PI++;
+		if (pth->dirs[PI])
+			ft_printf("\n%s:\n", pth->dirs[PI]);
+	}
+}
+
+int				main(int argc, char **argv)
 {
 	t_lspath pth;
 
 	if (argc == 1)
-	{
 		ls_print_dir(".");
-		return (0);
-	}
 	else
 	{
 		ls_get_args(&pth, argv + 1);
-		ft_printf("%c|%c|%c|%c|%c\n", pth.flags[R_BIG], pth.flags[R_MINI],
-			pth.flags[A_MINI], pth.flags[L_MINI], pth.flags[T_MINI]);
-		// if (!(ls_print_dir(argv[1])))
-		// {
-		// 	if (!(ls_print_file(argv[1])))
-		// 		ft_printf("ls: %s: No such file or directory\n", argv[1]);
-		// }
+		ls_lobi(&pth);
 	}
 	//system("leaks ft_ls");
 	return (0);

@@ -12,51 +12,118 @@
 
 #include "ft_ls.h"
 
-static int		ls_get_path(t_lspath *pth, char **argv)
+static void		ls_mem(t_lspath *pth, int f_len, int d_len, int e_len)
 {
-	return (1);
+	pth->files = (char **)malloc(sizeof(char *) * f_len + 1);
+	pth->files[f_len] = NULL;
+	PJ = 0;
+	while (PJ < f_len)
+	{
+		pth->files[PJ] = (char *)malloc(sizeof(char) * FILE_NAME_SIZE + 1);
+		pth->files[PJ][FILE_NAME_SIZE] = '\0';
+		PJ++;
+	}
+	pth->dirs = (char **)malloc(sizeof(char *) * d_len + 1);
+	pth->dirs[d_len] = NULL;
+	PJ = 0;
+	while (PJ < d_len)
+	{
+		pth->dirs[PJ] = (char *)malloc(sizeof(char) * FILE_NAME_SIZE + 1);
+		pth->dirs[PJ][FILE_NAME_SIZE] = '\0';
+		PJ++;
+	}
+	pth->e_path = (char **)malloc(sizeof(char *) * e_len + 1);
+	pth->e_path[e_len] = NULL;
 }
 
-static int		ls_get_flags(t_lspath *pth, char **argv)
+static void		ls_get_mem(t_lspath *pth, char **argv)
 {
-	PI = 0;
-	while (argv[PI] && argv[PI][0] == '-')
+	int f_len;
+	int d_len;
+	int e_len;
+
+	PJ = PI;
+	f_len = 0;
+	d_len = 0;
+	e_len = 0;
+	while (argv[PJ])
 	{
-		PJ = 1;
-		if (!argv[PI][PJ])
-			return (0);
-		while (argv[PI][PJ])
-		{
-			if (argv[PI][PJ] == 'R')
-				pth->flags[R_BIG] = 'R';
-			else if (argv[PI][PJ] == 'r')
-				pth->flags[R_MINI] = 'r';
-			else if (argv[PI][PJ] == 'a')
-				pth->flags[A_MINI] = 'a';
-			else if (argv[PI][PJ] == 'l')
-				pth->flags[L_MINI] = 'l';
-			else if (argv[PI][PJ] == 't')
-				pth->flags[T_MINI] = 't';
-			else if (argv[PI][PJ] != '1')
-				return ((int)argv[PI][PJ]);
-			PJ++;
-		}
+		if (ls_isdir(argv[PJ]))
+			d_len++;
+		else if (ls_isfile(argv[PJ]))
+			f_len++;
+		else
+			e_len++;
+		PJ++;
+	}
+	ls_mem(pth, f_len, d_len, e_len);
+}
+
+static void		ls_get_path(t_lspath *pth, char **argv)
+{
+	int f_len;
+	int d_len;
+	int e_len;
+
+	ls_get_mem(pth, argv);
+	f_len = 0;
+	d_len = 0;
+	e_len = 0;
+	while (argv[PI])
+	{
+		if (ls_isdir(argv[PI]))
+			ft_strcpy(pth->dirs[d_len++], argv[PI]);
+		else if (ls_isfile(argv[PI]))
+			ft_strcpy(pth->files[f_len++], argv[PI]);
+		else
+			pth->e_path[e_len++] = ft_strdup(argv[PI]);
 		PI++;
 	}
-	return (0);
 }
 
-void		ls_get_args(t_lspath *pth, char **argv)
+static void		e_path_sort(char ***arr)
+{
+	int		i;
+	int		j;
+	int		len;
+	char	*buf;
+
+	len = ft_arrlen(*arr);
+	i = 0;
+	while (i < len)
+	{
+		j = 0;
+		while (j < len - 1)
+		{
+			if (ft_strcmp((*arr)[j], (*arr)[j + 1]) > 0)
+			{
+				buf = ft_strdup((*arr)[j]);
+				free((*arr)[j]);
+				(*arr)[j] = ft_strdup((*arr)[j + 1]);
+				free((*arr)[j + 1]);
+				(*arr)[j + 1] = ft_strdup(buf);
+				free(buf);
+			}
+			j++;
+		}
+		i++;
+	}
+}
+
+void			ls_get_args(t_lspath *pth, char **argv)
 {
 	ft_bzero(pth->flags, LS_FLAG_SIZE);
 	pth->files = NULL;
 	pth->dirs = NULL;
-	pth->e_files = NULL;
+	pth->e_path = NULL;
 	if ((PJ = ls_get_flags(pth, argv)) > 0)
 	{
 		ft_printf("ls: illegal option -- %c\n", PJ);
-		ft_putendl("usage: ls [-lRart1] [file ...]");
+		ft_putendl("usage: ls [-lRGart1] [file ...]");
 		exit(0);
 	}
 	ls_get_path(pth, argv);
+	ls_base_sort(&pth->files);
+	ls_base_sort(&pth->dirs);
+	e_path_sort(&pth->e_path);
 }
