@@ -21,7 +21,7 @@ int		ls_isname_toolong(char *path)
 	i = 0;
 	while (arr[i])
 	{
-		if (ft_strlen(arr[i]) > FILE_NAME_SIZE)
+		if (ft_strlen(arr[i]) > LS_NAME_SIZE)
 		{
 			ft_arr_free(&arr);
 			return (1);

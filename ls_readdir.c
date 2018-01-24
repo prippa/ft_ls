@@ -28,8 +28,8 @@ static void	ls_file_count(t_ls *ls, DIR *directory, struct dirent *dp)
 	LI = 0;
 	while (LI < len)
 	{
-		FNI = (char *)malloc(sizeof(char) * FILE_NAME_SIZE + 1);
-		ls->file_name[LI][FILE_NAME_SIZE] = '\0';
+		FNI = (char *)malloc(sizeof(char) * LS_NAME_SIZE + 1);
+		ls->file_name[LI][LS_NAME_SIZE] = '\0';
 		LI++;
 	}
 	closedir(directory);

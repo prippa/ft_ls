@@ -16,7 +16,7 @@ void	ls_base_sort(char ***arr)
 {
 	int		i;
 	int		j;
-	char	buf[FILE_NAME_SIZE + 1];
+	char	buf[LS_NAME_SIZE + 1];
 	int		len;
 
 	len = ft_arrlen(*arr);

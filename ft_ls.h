@@ -27,7 +27,7 @@
 # include <grp.h>
 # include <pwd.h>
 
-# define FILE_NAME_SIZE 255
+# define LS_NAME_SIZE 255
 # define LS_FLAG_SIZE 6
 # define LS_MODE_SIZE 11
 # define LI ls->i
@@ -60,6 +60,8 @@ typedef struct			s_lspath
 	int					i;
 	int					j;
 }						t_lspath;
+
+char					*ls_get_mode(char *path, mode_t mode);
 
 int						ls_isname_toolong(char *path);
 int						ls_isfile(char *path);

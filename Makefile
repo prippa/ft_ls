@@ -56,7 +56,7 @@ C_FPF		= 	ft_pf_strjoin.c ft_charjoin.c\
 C_LS		=	main.c ls_print_dir.c ls_print_file.c\
 				ls_sorting_algo.c ls_readdir.c\
 				ls_get_args.c ls_path_valid.c\
-				ls_get_flags.c
+				ls_get_flags.c ls_get_mode.c
 
 
 

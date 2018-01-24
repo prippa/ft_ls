@@ -19,8 +19,8 @@ static void		ls_mem(t_lspath *pth, int f_len, int d_len, int e_len)
 	PJ = 0;
 	while (PJ < f_len)
 	{
-		pth->files[PJ] = (char *)malloc(sizeof(char) * FILE_NAME_SIZE + 1);
-		pth->files[PJ][FILE_NAME_SIZE] = '\0';
+		pth->files[PJ] = (char *)malloc(sizeof(char) * LS_NAME_SIZE + 1);
+		pth->files[PJ][LS_NAME_SIZE] = '\0';
 		PJ++;
 	}
 	pth->dirs = (char **)malloc(sizeof(char *) * d_len + 1);
@@ -28,8 +28,8 @@ static void		ls_mem(t_lspath *pth, int f_len, int d_len, int e_len)
 	PJ = 0;
 	while (PJ < d_len)
 	{
-		pth->dirs[PJ] = (char *)malloc(sizeof(char) * FILE_NAME_SIZE + 1);
-		pth->dirs[PJ][FILE_NAME_SIZE] = '\0';
+		pth->dirs[PJ] = (char *)malloc(sizeof(char) * LS_NAME_SIZE + 1);
+		pth->dirs[PJ][LS_NAME_SIZE] = '\0';
 		PJ++;
 	}
 	pth->e_path = (char **)malloc(sizeof(char *) * e_len + 1);
