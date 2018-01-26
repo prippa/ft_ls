@@ -112,7 +112,6 @@ static void		e_path_sort(char ***arr)
 
 void			ls_get_args(t_lspath *pth, char **argv)
 {
-	ft_bzero(pth->flags, LS_FLAG_SIZE);
 	pth->files = NULL;
 	pth->dirs = NULL;
 	pth->e_path = NULL;

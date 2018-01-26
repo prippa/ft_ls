@@ -12,6 +12,11 @@
 
 #include "ft_ls.h"
 
+void	ls_time_sort(char ***arr)
+{
+	
+}
+
 void	ls_base_sort(char ***arr)
 {
 	int		i;

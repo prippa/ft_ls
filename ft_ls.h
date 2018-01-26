@@ -35,7 +35,7 @@
 # define PI pth->i
 # define PJ pth->j
 # define FNI ls->file_name[LI]
-# define FNJ ls->file_name[LI][LJ]
+# define FNIJ ls->file_name[LI][LJ]
 
 # define R_BIG 0
 # define R_MINI 1
@@ -70,9 +70,10 @@ int						ls_isdir(char *path);
 void					ls_get_args(t_lspath *pth, char **argv);
 int						ls_get_flags(t_lspath *pth, char **argv);
 
-int						ls_print_dir(char *path);
+int						ls_print_dir(char *path, char *flg);
 int						ls_print_file(char *path);
 void					ls_base_sort(char ***arr);
-int						ls_readdir(t_ls *ls, DIR *directory, char *path);
+int						ls_readdir(t_ls *ls, DIR *directory,
+						char *path, char *flg);
 
 #endif

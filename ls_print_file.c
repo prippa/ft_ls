@@ -12,10 +12,10 @@
 
 #include "ft_ls.h"
 
-static void	ls_file_type(struct stat file_stat, char *path)
-{
+// static void	ls_file_type(struct stat file_stat, char *path)
+// {
 	
-}
+// }
 
 int			ls_print_file(char *path)
 {

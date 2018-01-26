@@ -27,11 +27,13 @@ static void		ls_lobi(t_lspath *pth)
 	while (pth->files[PI])
 		ls_print_file(pth->files[PI++]);
 	PI = 0;
-	if (pth->files[0] || pth->e_path[0])
-		ft_printf("\n%s:\n", pth->dirs[PI]);
+	if (pth->dirs[0] && (pth->files[0] || pth->e_path[0]))
+		write(1, "\n", 1);
+	if (pth->dirs[0] && (pth->files[0] || pth->e_path[0] || pth->dirs[1]))
+		ft_printf("%s:\n", pth->dirs[PI]);
 	while (pth->dirs[PI])
 	{
-		ls_print_dir(pth->dirs[PI]);
+		ls_print_dir(pth->dirs[PI], pth->flags);
 		PI++;
 		if (pth->dirs[PI])
 			ft_printf("\n%s:\n", pth->dirs[PI]);
@@ -40,36 +42,34 @@ static void		ls_lobi(t_lspath *pth)
 
 int				main(int argc, char **argv)
 {
-    struct stat 	fileStat;
-	struct passwd	*pwd;
-	struct group	*grp;
-	char 			*tmp;
+	struct stat 	arg1;
+	struct stat 	arg2;
+	char			*time1;
+	char			*time2;
 
-	if(argc != 2)
-        return (0);
-    stat(argv[1], &fileStat);
-    pwd = getpwuid(fileStat.st_uid);
-    grp = getgrgid(fileStat.st_gid);
-    tmp = ls_get_mode(argv[1], fileStat.st_mode);
- 	ft_printf("%s %d %s  %s %d",
- 		tmp,
- 		fileStat.st_nlink,
- 		pwd->pw_name,
- 		grp->gr_name,
- 		fileStat.st_size);
-	free(tmp);
-	tmp = ft_strdup(ctime(&fileStat.st_mtime));
- 	ft_printf(" %3.3s %2.2s %5.5s", &tmp[4], &tmp[8], &tmp[11]);
- 	ft_printf(" %s\n", argv[1]);
- 	free(tmp);
+	stat(argv[1], &arg1);
+	stat(argv[2], &arg2);
+	time1 = ft_strdup(ctime(&arg1.st_mtime));
+	time2 = ft_strdup(ctime(&arg2.st_mtime));
+
+	//printf("%s%s", time1, time2);
+	if (ft_strcmp(time1, time2) > 0)
+		printf("%s\n", time1);
 	// t_lspath pth;
 
+	// ft_bzero(pth.flags, LS_FLAG_SIZE);
 	// if (argc == 1)
-	// 	ls_print_dir(".");
+	// 	ls_print_dir(".", pth.flags);
 	// else
 	// {
 	// 	ls_get_args(&pth, argv + 1);
-	// 	ls_lobi(&pth);
+	// 	if (!pth.e_path[0] && !pth.files[0] && !pth.dirs[0])
+	// 		ls_print_dir(".", pth.flags);
+	// 	else
+	// 		ls_lobi(&pth);
+	// 	ft_arr_free(&pth.files);
+	// 	ft_arr_free(&pth.dirs);
+	// 	ft_arr_free(&pth.e_path);
 	// }
 	//system("leaks ft_ls");
 	return (0);
