@@ -39,6 +39,13 @@ int			ls_get_flags(t_lspath *pth, char **argv)
 		PJ = 1;
 		if (!argv[PI][PJ])
 			return (0);
+		if (argv[PI][PJ] == '-' && !argv[PI][PJ + 1])
+		{
+			PI++;
+			continue ;
+		}
+		if (argv[PI][PJ] == '-' && argv[PI][PJ + 1])
+			return ((int)argv[PI][PJ]);
 		while (argv[PI][PJ])
 		{
 			if (ls_filter1(pth, argv[PI][PJ]) > 0)

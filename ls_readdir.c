@@ -12,49 +12,49 @@
 
 #include "ft_ls.h"
 
-static void	ls_file_count(t_ls *ls, DIR *directory, struct dirent *dp, char *flg)
+static void	ls_file_count(t_ls *ls, char *flg, char *path)
 {
+	struct dirent 	*dp;
+	DIR				*directory;
 	int				len;
 
 	len = 0;
+	directory = opendir(path);
+	dp = readdir(directory);
 	while (dp)
 	{
 		if (flg[A_MINI] || dp->d_name[0] != '.')
 			len++;
 		dp = readdir(directory);
 	}
-	ls->file_name = (char **)malloc(sizeof(char *) * len + 1);
-	ls->file_name[len] = NULL;
-	LI = 0;
-	while (LI < len)
-	{
-		FNI = (char *)malloc(sizeof(char) * LS_NAME_SIZE + 1);
-		ls->file_name[LI][LS_NAME_SIZE] = '\0';
-		LI++;
-	}
 	closedir(directory);
+	ls->file_path = (char **)malloc(sizeof(char *) * len + 1);
+	ls->file_path[len] = NULL;
 }
 
-int			ls_readdir(t_ls *ls, DIR *directory, char *path, char *flg)
+int			ls_readdir(t_ls *ls, char *path, char *flg)
 {
 	struct dirent	*dp;
+	DIR				*directory;
+	char			*buf;
 
-	dp = readdir(directory);
-	if (!dp)
-		return (0);
-	ls_file_count(ls, directory, dp, flg);
 	directory = opendir(path);
 	dp = readdir(directory);
-	LI = 0;
+	if (!dp)
+	{
+		closedir(directory);
+		return (0);
+	}
+	ls_file_count(ls, flg, path);
+	buf = ft_strjoin(path, "/");
+	ls->i = 0;
 	while (dp)
 	{
 		if (flg[A_MINI] || dp->d_name[0] != '.')
-		{
-			ft_strcpy(FNI, dp->d_name);
-			LI++;
-		}
+			ls->file_path[ls->i++] = ft_strjoin(buf, dp->d_name);
 		dp = readdir(directory);
 	}
 	closedir(directory);
+	free(buf);
 	return (1);
 }

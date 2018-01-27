@@ -1,26 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ls_print_file.c                                    :+:      :+:    :+:   */
+/*   trash.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: prippa <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/01/22 11:24:39 by prippa            #+#    #+#             */
-/*   Updated: 2018/01/22 11:24:41 by prippa           ###   ########.fr       */
+/*   Created: 2018/01/27 17:32:35 by prippa            #+#    #+#             */
+/*   Updated: 2018/01/27 17:32:37 by prippa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 
-// static void	ls_file_type(struct stat file_stat, char *path)
-// {
-	
-// }
-
-void		ls_print_file(char *path, char *name)
+void	ls_color(int c)
 {
-	// struct stat file_stat;
-
-	// stat(path, &file_stat);
-	ft_printf("%s\n", name);
+	c %= 7;
+	if (c == 0)
+		ft_putstr(LS_RED);
+	else if (c == 1)
+		ft_putstr(LS_YELLOW);
+	else if (c == 2)
+		ft_putstr(LS_GREEN);
+	else if (c == 3)
+		ft_putstr(LS_CYAN);
+	else if (c == 4)
+		ft_putstr(LS_BLUE);
+	else if (c == 5)
+		ft_putstr(LS_MAGENTA);
+	else if (c == 6)
+		ft_putstr(LS_NORMAL);
 }

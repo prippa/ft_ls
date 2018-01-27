@@ -27,6 +27,14 @@
 # include <grp.h>
 # include <pwd.h>
 
+# define LS_NORMAL "\x1B[0m"
+# define LS_RED "\x1B[31m"
+# define LS_GREEN "\x1B[32m"
+# define LS_YELLOW "\x1B[33m"
+# define LS_BLUE "\x1B[34m"
+# define LS_MAGENTA "\x1B[35m"
+# define LS_CYAN "\x1B[36m"
+
 # define LS_NAME_SIZE 255
 # define LS_FLAG_SIZE 6
 # define LS_MODE_SIZE 11
@@ -34,8 +42,6 @@
 # define LJ ls->j
 # define PI pth->i
 # define PJ pth->j
-# define FNI ls->file_name[LI]
-# define FNIJ ls->file_name[LI][LJ]
 
 # define R_BIG 0
 # define R_MINI 1
@@ -46,7 +52,8 @@
 
 typedef struct			s_ls
 {
-	char				**file_name;
+	char				**file_path;
+	struct stat 		*file_stat;
 	int					i;
 	int					j;
 }						t_ls;
@@ -61,19 +68,22 @@ typedef struct			s_lspath
 	int					j;
 }						t_lspath;
 
+void					ls_get_stat(t_ls *ls);
 char					*ls_get_mode(char *path, mode_t mode);
 
 int						ls_isname_toolong(char *path);
 int						ls_isfile(char *path);
 int						ls_isdir(char *path);
 
-void					ls_get_args(t_lspath *pth, char **argv);
+int						ls_get_args(t_lspath *pth, char **argv);
 int						ls_get_flags(t_lspath *pth, char **argv);
 
-int						ls_print_dir(char *path, char *flg);
-int						ls_print_file(char *path);
+void					ls_print_dir(char *path, char *flg);
+void					ls_print_file(char *path, char *name);
 void					ls_base_sort(char ***arr);
-int						ls_readdir(t_ls *ls, DIR *directory,
-						char *path, char *flg);
+void					ls_time_sort(t_ls *ls, char *buf, int n, long int tmp);
+int						ls_readdir(t_ls *ls, char *path, char *flg);
+
+void					ls_color(int c);
 
 #endif
