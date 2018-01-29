@@ -74,8 +74,9 @@ int				ls_get_args(t_lspath *pth, char **argv)
 	pth->e_path = NULL;
 	if ((PJ = ls_get_flags(pth, argv)) > 0)
 	{
-		ft_printf("ls: illegal option -- %c\n", PJ);
-		ft_putendl("usage: ls [-lRGart1] [file ...]");
+		ft_putstr_fd("ls: illegal option -- ", 2);
+		ft_putchar_fd(PJ, 2);
+		ft_putstr_fd("\nusage: ls [-lRGart1] [file ...]\n", 2);
 		return (0);
 	}
 	ls_get_path(pth, argv);

@@ -36,7 +36,7 @@ int		ls_isfile(char *path)
 {
 	struct stat file_stat;
 
-	if (stat(path, &file_stat) < 0)
+	if (lstat(path, &file_stat) < 0)
 		return (0);
 	return (1);
 }

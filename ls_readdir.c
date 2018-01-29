@@ -14,7 +14,7 @@
 
 static void	ls_file_count(t_ls *ls, char *flg, char *path)
 {
-	struct dirent 	*dp;
+	struct dirent	*dp;
 	DIR				*directory;
 	int				len;
 

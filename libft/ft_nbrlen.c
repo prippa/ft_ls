@@ -1,30 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.h                                    :+:      :+:    :+:   */
+/*   ft_nbrlen.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: prippa <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/11/22 17:47:31 by prippa            #+#    #+#             */
-/*   Updated: 2017/11/22 17:47:33 by prippa           ###   ########.fr       */
+/*   Created: 2018/01/28 15:43:17 by prippa            #+#    #+#             */
+/*   Updated: 2018/01/28 15:45:24 by prippa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_H
-# define GET_NEXT_LINE_H
-
-# define BUFF_SIZE 32
-# include "libft.h"
-# include <fcntl.h>
-
-typedef	struct		s_gnl
+long long int	ft_nbrlen(long long int nb)
 {
-	char			*str;
-	int				fd;
-	size_t			start;
-	struct s_gnl	*next;
-}					t_gnl;
+	int	i;
 
-int					get_next_line(const int fd, char **line);
-
-#endif
+	i = 0;
+	if (nb == 0)
+		return (1);
+	while (nb > 0)
+	{
+		nb /= 10;
+		i++;
+	}
+	return (i);
+}

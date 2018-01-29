@@ -12,21 +12,9 @@
 
 #include "ft_ls.h"
 
-void	ls_get_stat(t_ls *ls)
-{
-	LJ = ft_arrlen(ls->file_path);
-	ls->file_stat = (struct stat *)malloc(sizeof(struct stat) * LJ);
-	LI = 0;
-	while (LI < LJ)
-	{
-		stat(ls->file_path[LI], &ls->file_stat[LI]);
-		LI++;
-	}
-}
-
 void	ls_time_sort(t_ls *ls, char *buf, int n, long int tmp)
 {
-	ls_get_stat(ls);
+	ls->file_stat = ls_get_stat(ls->file_path);
 	n = ft_arrlen(ls->file_path);
 	LI = 0;
 	while (LI < n)

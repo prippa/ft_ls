@@ -37,7 +37,7 @@ static void	ls_mode(char **buf, mode_t mode)
 		(*buf)[i++] = *((mode & S_IXOTH) ? "x" : "-");
 }
 
-static void	ls_type(char **buf, mode_t mode)
+static int	ls_type(char **buf, mode_t mode)
 {
 	int c;
 
@@ -45,9 +45,15 @@ static void	ls_type(char **buf, mode_t mode)
 	if (c == S_IFDIR)
 		(*buf)[0] = 'd';
 	else if (c == S_IFCHR)
+	{
 		(*buf)[0] = 'c';
+		return (1);
+	}
 	else if (c == S_IFBLK)
+	{
 		(*buf)[0] = 'b';
+		return (1);
+	}
 	else if (c == S_IFLNK)
 		(*buf)[0] = 'l';
 	else if (c == S_IFSOCK)
@@ -56,15 +62,16 @@ static void	ls_type(char **buf, mode_t mode)
 		(*buf)[0] = 'f';
 	else
 		(*buf)[0] = '-';
+	return (0);
 }
 
-char		*ls_get_mode(char *path, mode_t mode)
+int			ls_get_mode(char **line, char *path, mode_t mode)
 {
-	char	*buf;
+	int		flag;
 
-	buf = ft_strnew(LS_MODE_SIZE);
-	ls_type(&buf, mode);
-	ls_mode(&buf, mode);
-	buf[10] = *(listxattr(path, 0, 0, XATTR_NOFOLLOW) > 0 ? "@" : " ");
-	return (buf);
+	*line = ft_strnew(LS_MODE_SIZE);
+	flag = ls_type(&(*line), mode);
+	ls_mode(&(*line), mode);
+	(*line)[10] = *(listxattr(path, 0, 0, XATTR_NOFOLLOW) > 0 ? "@" : " ");
+	return (flag);
 }

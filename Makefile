@@ -22,7 +22,7 @@ DIR_INC		=	$(DIR_LIBFT)includes/
 DIR_FPF		=	$(DIR_LIBFT)printf/
 DIR_OBJ		= 	./obj/
 
-HEAD_LIBFT	=	libft.h get_next_line.h
+HEAD_LIBFT	=	libft.h
 HEAD_FPF	=	ft_printf.h
 HEAD_LS		=	ft_ls.h
 
@@ -42,8 +42,8 @@ C_LIBFT		=  ft_atoi.c ft_bzero.c ft_isalnum.c ft_isalpha.c\
 			ft_strncpy.c ft_strnequ.c ft_strnew.c ft_strnstr.c\
 			ft_strrchr.c ft_strsplit.c ft_strstr.c ft_strsub.c\
 			ft_strtrim.c ft_tolower.c ft_tostrlowercase.c ft_tostruppercase.c\
-			ft_toupper.c ft_itoa_base.c get_next_line.c\
-			ft_arr_free.c ft_arrlen.c
+			ft_toupper.c ft_itoa_base.c\
+			ft_arr_free.c ft_arrlen.c ft_nbrlen.c
 
 C_FPF		= 	ft_pf_strjoin.c ft_charjoin.c\
 				ft_printf.c ft_unicode.c ft_conv_sig_int.c ft_conv_unsig_int.c\
