@@ -14,6 +14,8 @@
 
 static void	ls_rev_output(t_ls *ls, char *flg)
 {
+	if (flg[L_MINI] && ls->file_path[0])
+		ls_print_total(ls);
 	LI = ft_arrlen(ls->file_path);
 	while (--LI >= 0)
 	{
@@ -34,13 +36,14 @@ static void	ls_output(t_ls *ls, char *flg)
 			free(ls->file_stat);
 		ls->file_stat = ls_get_stat(ls->file_path);
 		ls->width = ls_get_width(ls->file_stat, ft_arrlen(ls->file_path));
-		ls_print_total(ls);
 	}
 	if (flg[R_MINI])
 	{
 		ls_rev_output(ls, flg);
 		return ;
 	}
+	if (flg[L_MINI] && ls->file_path[0])
+		ls_print_total(ls);
 	LI = 0;
 	while (ls->file_path[LI])
 	{
@@ -66,6 +69,11 @@ static void	ls_rev_bigr_flag(t_ls *ls, char *flg)
 			ft_printf("\n%s:\n", ls->file_path[LI]);
 			ls_print_dir(ls->file_path[LI], flg);
 		}
+		else if (errno == 13)
+		{
+			ft_printf("\n%s:\n", ls->file_path[LI]);
+			ls_print_permision_error(ls->file_path[LI]);
+		}
 	}
 }
 
@@ -86,6 +94,11 @@ static void	ls_bigr_flag(t_ls *ls, char *flg)
 			ft_printf("\n%s:\n", ls->file_path[LI]);
 			ls_print_dir(ls->file_path[LI], flg);
 		}
+		else if (errno == 13)
+		{
+			ft_printf("\n%s:\n", ls->file_path[LI]);
+			ls_print_permision_error(ls->file_path[LI]);
+		}
 		LI++;
 	}
 }
@@ -100,7 +113,7 @@ void		ls_print_dir(char *path, char *flg)
 	if (!(ls_readdir(&ls, path, flg)))
 		return ;
 	if (flg[T_MINI])
-		ls_time_sort(&ls, NULL, 0, 0);
+		ls_time_sort(&ls.file_path, 0, 0);
 	else
 		ls_base_sort(&ls.file_path);
 	ls_output(&ls, flg);

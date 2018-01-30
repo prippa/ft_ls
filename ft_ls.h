@@ -82,11 +82,12 @@ int						ls_isdir(char *path);
 int						ls_get_args(t_lspath *pth, char **argv);
 int						ls_get_flags(t_lspath *pth, char **argv);
 
+void					ls_print_permision_error(char *path);
 void					ls_print_dir(char *path, char *flg);
 void					ls_print_file(char *path, char *name,
 						char *flg, int *width);
 void					ls_base_sort(char ***arr);
-void					ls_time_sort(t_ls *ls, char *buf, int n, long int tmp);
+void					ls_time_sort(char ***arr, int i, int j);
 int						ls_readdir(t_ls *ls, char *path, char *flg);
 
 void					ls_color(int c);

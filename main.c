@@ -21,8 +21,18 @@ static void		ls_out_file_l(t_lspath *pth)
 	width = ls_get_width(stat_buf, ft_arrlen(pth->files));
 	if (pth->flags[G_BIG])
 		ft_putstr(LS_CYAN);
-	while (pth->files[PI])
-		ls_print_file(pth->files[PI], pth->files[PI++], pth->flags, width);
+	if (pth->flags[R_MINI])
+	{
+		PI = ft_arrlen(pth->files);
+		while (--PI >= 0)
+			ls_print_file(pth->files[PI], pth->files[PI], pth->flags, width);
+	}
+	else
+	{
+		PI = 0;
+		while (pth->files[PI])
+			ls_print_file(pth->files[PI], pth->files[PI++], pth->flags, width);
+	}
 	if (pth->flags[G_BIG])
 		ft_putstr(LS_NORMAL);
 	free(width);
@@ -38,11 +48,20 @@ static void		ls_out_file(t_lspath *pth)
 		ls_out_file_l(pth);
 		return ;
 	}
-	PI = 0;
 	if (pth->flags[G_BIG])
 		ft_putstr(LS_CYAN);
-	while (pth->files[PI])
-		ls_print_file(pth->files[PI], pth->files[PI++], pth->flags, NULL);
+	if (pth->flags[R_MINI])
+	{
+		PI = ft_arrlen(pth->files);
+		while (--PI >= 0)
+			ls_print_file(pth->files[PI], pth->files[PI], pth->flags, NULL);
+	}
+	else
+	{
+		PI = 0;
+		while (pth->files[PI])
+			ls_print_file(pth->files[PI], pth->files[PI++], pth->flags, NULL);
+	}
 	if (pth->flags[G_BIG])
 		ft_putstr(LS_NORMAL);
 }
@@ -79,13 +98,17 @@ static void		ls_lobi(t_lspath *pth)
 	ls_out_error(pth);
 	ls_out_file(pth);
 	PI = 0;
-	if (pth->dirs[0] && (pth->files[0] || pth->e_path[0]))
+	if (pth->dirs[0] && pth->files[0])
 		write(1, "\n", 1);
 	if (pth->dirs[0] && (pth->files[0] || pth->e_path[0] || pth->dirs[1]))
-		ft_printf("%s:\n", pth->dirs[PI]);
+		ft_printf("%s:\n", pth->dirs[0]);
 	while (pth->dirs[PI])
 	{
-		ls_print_dir(pth->dirs[PI], pth->flags);
+		ls_isdir(pth->dirs[PI]);
+		if (errno == 13)
+			ls_print_permision_error(pth->dirs[PI]);
+		else
+			ls_print_dir(pth->dirs[PI], pth->flags);
 		PI++;
 		if (pth->dirs[PI])
 			ft_printf("\n%s:\n", pth->dirs[PI]);
