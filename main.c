@@ -17,6 +17,8 @@ static void		ls_out_file_l(t_lspath *pth)
 	int			*width;
 	struct stat	*stat_buf;
 
+	if (!pth->files[0])
+		return ;
 	stat_buf = ls_get_stat(pth->files);
 	width = ls_get_width(stat_buf, ft_arrlen(pth->files));
 	if (pth->flags[G_BIG])
@@ -41,8 +43,8 @@ static void		ls_out_file_l(t_lspath *pth)
 
 static void		ls_out_file(t_lspath *pth)
 {
-	if (!pth->files[0])
-		return ;
+	if (pth->flags[V_MINI])
+		ft_printf("count ---[%u]---\n", ft_arrlen(pth->files));
 	if (pth->flags[L_MINI])
 	{
 		ls_out_file_l(pth);

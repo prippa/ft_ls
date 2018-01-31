@@ -37,7 +37,7 @@
 # define LS_CYAN		"\x1B[36m"
 
 # define LS_NAME_SIZE	255
-# define LS_FLAG_SIZE	6
+# define LS_FLAG_SIZE	8
 # define LS_MODE_SIZE	11
 
 # define R_BIG			0
@@ -46,6 +46,8 @@
 # define L_MINI			3
 # define T_MINI			4
 # define G_BIG			5
+# define V_MINI			6
+# define Y_MINI			7
 
 # define LI ls->i
 # define LJ ls->j
@@ -86,8 +88,11 @@ void					ls_print_permision_error(char *path);
 void					ls_print_dir(char *path, char *flg);
 void					ls_print_file(char *path, char *name,
 						char *flg, int *width);
+
+void					ls_len_sort(char ***arr);
 void					ls_base_sort(char ***arr);
 void					ls_time_sort(char ***arr, int i, int j);
+
 int						ls_readdir(t_ls *ls, char *path, char *flg);
 
 void					ls_color(int c);

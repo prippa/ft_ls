@@ -85,3 +85,32 @@ void		ls_base_sort(char ***arr)
 		i++;
 	}
 }
+
+void		ls_len_sort(char ***arr)
+{
+	int		i;
+	int		j;
+	int		len;
+	char	*buf;
+
+	len = ft_arrlen(*arr);
+	i = 0;
+	while (i < len)
+	{
+		j = 0;
+		while (j < len - 1)
+		{
+			if (ft_strlen((*arr)[j]) > ft_strlen((*arr)[j + 1]))
+			{
+				buf = ft_strdup((*arr)[j]);
+				free((*arr)[j]);
+				(*arr)[j] = ft_strdup((*arr)[j + 1]);
+				free((*arr)[j + 1]);
+				(*arr)[j + 1] = ft_strdup(buf);
+				free(buf);
+			}
+			j++;
+		}
+		i++;
+	}
+}

@@ -26,7 +26,13 @@ static int	ls_filter1(t_lspath *pth, int c)
 		pth->flags[T_MINI] = 't';
 	else if (c == 'G')
 		pth->flags[G_BIG] = 'G';
-	else if (c != '1')
+	else if (c == 'v')
+		pth->flags[V_MINI] = 'v';
+	else if (c == 'y')
+		pth->flags[Y_MINI] = 'y';
+	else if (c == '1')
+		pth->flags[L_MINI] = '\0';
+	else
 		return (c);
 	return (0);
 }
