@@ -33,9 +33,10 @@ void		ls_time_sort(char ***arr, int i, int j)
 	int			len;
 	struct stat	*file_stat;
 
-	file_stat = NULL;
-	file_stat = ls_get_stat(*arr);
 	len = ft_arrlen(*arr);
+	if (len < 2)
+		return ;
+	file_stat = ls_get_stat(*arr);
 	i = 0;
 	while (i < len)
 	{
@@ -53,8 +54,7 @@ void		ls_time_sort(char ***arr, int i, int j)
 		}
 		i++;
 	}
-	if (file_stat)
-		free(file_stat);
+	free(file_stat);
 }
 
 void		ls_base_sort(char ***arr)
