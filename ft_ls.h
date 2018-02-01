@@ -37,7 +37,7 @@
 # define LS_CYAN		"\x1B[36m"
 
 # define LS_NAME_SIZE	255
-# define LS_FLAG_SIZE	8
+# define LS_FLAG_SIZE	10
 # define LS_MODE_SIZE	11
 
 # define R_BIG			0
@@ -48,6 +48,8 @@
 # define G_BIG			5
 # define V_MINI			6
 # define Y_MINI			7
+# define S_BIG			8
+# define A_BIG			9
 
 # define LI ls->i
 # define LJ ls->j
@@ -73,28 +75,30 @@ typedef struct			s_lspath
 	int					j;
 }						t_lspath;
 
-int						*ls_get_width(struct stat *stat_buf, int size);
-struct stat				*ls_get_stat(char **path);
+int						ls_readdir(t_ls *ls, char *path, char *flg);
 int						ls_get_mode(char **line, char *path, mode_t mode);
 
 int						ls_isname_toolong(char *path);
 int						ls_isfile(char *path);
 int						ls_isdir(char *path);
+void					ls_print_permision_error(char *path);
 
 int						ls_get_args(t_lspath *pth, char **argv);
 int						ls_get_flags(t_lspath *pth, char **argv);
 
-void					ls_print_permision_error(char *path);
 void					ls_print_dir(char *path, char *flg);
 void					ls_print_file(char *path, char *name,
 						char *flg, int *width);
 
+void	 				ls_sort(char ***arr, int index);
 void					ls_len_sort(char ***arr);
 void					ls_base_sort(char ***arr);
+void					ls_big_s_sort(char ***arr);
 void					ls_time_sort(char ***arr, int i, int j);
 
-int						ls_readdir(t_ls *ls, char *path, char *flg);
 
+struct stat				*ls_get_stat(char **path);
+int						*ls_get_width(struct stat *stat_buf, int size);
 void					ls_color(int c);
 void					ls_print_total(t_ls *ls);
 void					ls_show_link(char *path);

@@ -14,18 +14,36 @@
 
 static void	ls_time_sort_algo(char ***arr, struct stat	*file_stat, int j)
 {
-	char	*buf;
-	long	tmp;
+	struct timespec	tmp;
 
-	tmp = file_stat[j].st_mtimespec.tv_sec;
-	file_stat[j].st_mtimespec.tv_sec = file_stat[j + 1].st_mtimespec.tv_sec;
-	file_stat[j + 1].st_mtimespec.tv_sec = tmp;
-	buf = ft_strdup((*arr)[j]);
-	free((*arr)[j]);
-	(*arr)[j] = ft_strdup((*arr)[j + 1]);
-	free((*arr)[j + 1]);
-	(*arr)[j + 1] = ft_strdup(buf);
-	free(buf);
+	tmp = file_stat[j].st_mtimespec;
+	file_stat[j].st_mtimespec = file_stat[j + 1].st_mtimespec;
+	file_stat[j + 1].st_mtimespec = tmp;
+	ls_sort(arr, j);
+}
+
+static void	ls_time_sort_if(char ***arr, struct stat *file_stat, int j)
+{
+	if ((file_stat[j].st_mtimespec.tv_sec)
+		< (file_stat[j + 1].st_mtimespec.tv_sec))
+	{
+		ls_time_sort_algo(arr, file_stat, j);
+	}
+	else if (file_stat[j].st_mtimespec.tv_sec
+		== file_stat[j + 1].st_mtimespec.tv_sec
+		&& file_stat[j].st_mtimespec.tv_nsec
+		== file_stat[j + 1].st_mtimespec.tv_nsec)
+	{
+		if (ft_strcmp((*arr)[j], (*arr)[j + 1]) > 0)
+			ls_time_sort_algo(arr, file_stat, j);
+	}
+	else if (file_stat[j].st_mtimespec.tv_sec
+		== file_stat[j + 1].st_mtimespec.tv_sec
+		&& file_stat[j].st_mtimespec.tv_nsec
+		< file_stat[j + 1].st_mtimespec.tv_nsec)
+	{
+		ls_time_sort_algo(arr, file_stat, j);
+	}
 }
 
 void		ls_time_sort(char ***arr, int i, int j)
@@ -43,13 +61,7 @@ void		ls_time_sort(char ***arr, int i, int j)
 		j = 0;
 		while (j < (len - 1))
 		{
-			if ((file_stat[j].st_mtimespec.tv_sec)
-				< (file_stat[j + 1].st_mtimespec.tv_sec))
-				ls_time_sort_algo(&(*arr), file_stat, j);
-			else if ((file_stat[j].st_mtimespec.tv_sec)
-				== (file_stat[j + 1].st_mtimespec.tv_sec))
-				if (ft_strcmp((*arr)[j], (*arr)[j + 1]) > 0)
-					ls_time_sort_algo(&(*arr), file_stat, j);
+			ls_time_sort_if(arr, file_stat, j);
 			j++;
 		}
 		i++;
@@ -62,7 +74,6 @@ void		ls_base_sort(char ***arr)
 	int		i;
 	int		j;
 	int		len;
-	char	*buf;
 
 	len = ft_arrlen(*arr);
 	i = 0;
@@ -72,14 +83,7 @@ void		ls_base_sort(char ***arr)
 		while (j < len - 1)
 		{
 			if (ft_strcmp((*arr)[j], (*arr)[j + 1]) > 0)
-			{
-				buf = ft_strdup((*arr)[j]);
-				free((*arr)[j]);
-				(*arr)[j] = ft_strdup((*arr)[j + 1]);
-				free((*arr)[j + 1]);
-				(*arr)[j + 1] = ft_strdup(buf);
-				free(buf);
-			}
+				ls_sort(arr, j);
 			j++;
 		}
 		i++;
@@ -91,7 +95,8 @@ void		ls_len_sort(char ***arr)
 	int		i;
 	int		j;
 	int		len;
-	char	*buf;
+	size_t	size;
+	size_t	size1;
 
 	len = ft_arrlen(*arr);
 	i = 0;
@@ -100,15 +105,13 @@ void		ls_len_sort(char ***arr)
 		j = 0;
 		while (j < len - 1)
 		{
-			if (ft_strlen((*arr)[j]) > ft_strlen((*arr)[j + 1]))
-			{
-				buf = ft_strdup((*arr)[j]);
-				free((*arr)[j]);
-				(*arr)[j] = ft_strdup((*arr)[j + 1]);
-				free((*arr)[j + 1]);
-				(*arr)[j + 1] = ft_strdup(buf);
-				free(buf);
-			}
+			size = ft_strlen((*arr)[j]);
+			size1 = ft_strlen((*arr)[j + 1]);
+			if (size > size1)
+				ls_sort(arr, j);
+			else if (size == size1)
+				if (ft_strcmp((*arr)[j], (*arr)[j + 1]) > 0)
+					ls_sort(arr, j);
 			j++;
 		}
 		i++;

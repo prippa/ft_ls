@@ -50,3 +50,19 @@ int		ls_isdir(char *path)
 	closedir(directory);
 	return (1);
 }
+
+void			ls_print_permision_error(char *path)
+{
+	if (ft_strrchr(path, '/'))
+	{
+		ft_putstr_fd("ls: ", 2);
+		ft_putstr_fd(ft_strrchr(path, '/') + 1, 2);
+		ft_putstr_fd(": Permission denied\n", 2);
+	}
+	else
+	{
+		ft_putstr_fd("ls: ", 2);
+		ft_putstr_fd(path, 2);
+		ft_putstr_fd(": Permission denied\n", 2);
+	}
+}

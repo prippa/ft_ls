@@ -13,7 +13,7 @@
 NAME		=	ft_ls
 LIBRARY		=	libft.a
 
-# FLAGS		= 	-Wall -Werror -Wextra
+FLAGS		= 	-Wall -Werror -Wextra
 
 CC			=	gcc
 
@@ -53,11 +53,10 @@ C_FPF		= 	ft_pf_strjoin.c ft_charjoin.c\
 				ft_output_u_modul.c ft_output_ox_modul.c\
 				ft_output_p_modul.c
 
-C_LS		=	main.c ls_print_dir.c ls_print_file.c\
-				ls_sorting_algo.c ls_readdir.c\
-				ls_get_args.c ls_path_valid.c\
-				ls_get_flags.c ls_get_mode.c\
-				ls_trash.c
+C_LS		=	main.c ls_print_dir.c ls_readdir.c ls_print_file.c\
+				ls_sorting_algo.c ls_big_s_sort.c\
+				ls_get_args.c ls_get_flags.c ls_get_mode.c\
+				ls_path_valid.c ls_trash.c
 
 
 

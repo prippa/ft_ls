@@ -69,20 +69,29 @@ static void		ls_get_path(t_lspath *pth, char **argv)
 	}
 }
 
-void			ls_print_permision_error(char *path)
+static void		ls_sort_pth(t_lspath *pth)
 {
-	if (ft_strrchr(path, '/'))
+	if (pth->flags[T_MINI])
 	{
-		ft_putstr_fd("ls: ", 2);
-		ft_putstr_fd(ft_strrchr(path, '/') + 1, 2);
-		ft_putstr_fd(": Permission denied\n", 2);
+		ls_time_sort(&pth->files, 0, 0);
+		ls_time_sort(&pth->dirs, 0, 0);
+	}
+	else if (pth->flags[Y_MINI])
+	{
+		ls_len_sort(&pth->files);
+		ls_len_sort(&pth->dirs);
+	}
+	else if (pth->flags[S_BIG])
+	{
+		ls_big_s_sort(&pth->files);
+		ls_big_s_sort(&pth->dirs);
 	}
 	else
 	{
-		ft_putstr_fd("ls: ", 2);
-		ft_putstr_fd(path, 2);
-		ft_putstr_fd(": Permission denied\n", 2);
+		ls_base_sort(&pth->files);
+		ls_base_sort(&pth->dirs);
 	}
+	ls_base_sort(&pth->e_path);
 }
 
 int				ls_get_args(t_lspath *pth, char **argv)
@@ -94,17 +103,10 @@ int				ls_get_args(t_lspath *pth, char **argv)
 	{
 		ft_putstr_fd("ls: illegal option -- ", 2);
 		ft_putchar_fd(PJ, 2);
-		ft_putstr_fd("\nusage: ls [-lRart1nBG] [file ...]\n", 2);
+		ft_putstr_fd("\nusage: ls [-AGRSalrtvy1] [file ...]\n", 2);
 		return (0);
 	}
 	ls_get_path(pth, argv);
-	if (pth->flags[T_MINI])
-		ls_time_sort(&pth->files, 0, 0);
-	else if (pth->flags[Y_MINI])
-		ls_len_sort(&pth->files);
-	else
-		ls_base_sort(&pth->files);
-	ls_base_sort(&pth->dirs);
-	ls_base_sort(&pth->e_path);
+	ls_sort_pth(pth);
 	return (1);
 }

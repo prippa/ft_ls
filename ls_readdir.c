@@ -23,7 +23,9 @@ static void	ls_file_count(t_ls *ls, char *flg, char *path)
 	dp = readdir(directory);
 	while (dp)
 	{
-		if (flg[A_MINI] || dp->d_name[0] != '.')
+		if (flg[A_MINI] || (flg[A_BIG]
+			&& ft_strcmp(dp->d_name, ".")
+			&& ft_strcmp(dp->d_name, "..")) || dp->d_name[0] != '.')
 			len++;
 		dp = readdir(directory);
 	}
@@ -50,7 +52,9 @@ int			ls_readdir(t_ls *ls, char *path, char *flg)
 	ls->i = 0;
 	while (dp)
 	{
-		if (flg[A_MINI] || dp->d_name[0] != '.')
+		if (flg[A_MINI] || (flg[A_BIG]
+			&& ft_strcmp(dp->d_name, ".")
+			&& ft_strcmp(dp->d_name, "..")) || dp->d_name[0] != '.')
 			ls->file_path[ls->i++] = ft_strjoin(buf, dp->d_name);
 		dp = readdir(directory);
 	}

@@ -113,10 +113,12 @@ void		ls_print_dir(char *path, char *flg)
 		return ;
 	if (flg[V_MINI])
 		ft_printf("count ---[%u]---\n", ft_arrlen(ls.file_path));
-	if (flg[T_MINI])
-		ls_time_sort(&ls.file_path, 0, 0);
+	if (flg[S_BIG])
+		ls_big_s_sort(&ls.file_path);
 	else if (flg[Y_MINI])
 		ls_len_sort(&ls.file_path);
+	else if (flg[T_MINI])
+		ls_time_sort(&ls.file_path, 0, 0);
 	else
 		ls_base_sort(&ls.file_path);
 	ls_output(&ls, flg);
