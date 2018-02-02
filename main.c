@@ -43,7 +43,7 @@ static void		ls_out_file_l(t_lspath *pth)
 
 static void		ls_out_file(t_lspath *pth)
 {
-	if (pth->flags[V_MINI])
+	if (pth->flags[V_MINI] && pth->files[0])
 		ft_printf("count ---[%u]---\n", ft_arrlen(pth->files));
 	if (pth->flags[L_MINI])
 	{
