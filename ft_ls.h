@@ -90,12 +90,11 @@ void					ls_print_dir(char *path, char *flg);
 void					ls_print_file(char *path, char *name,
 						char *flg, int *width);
 
-void	 				ls_sort(char ***arr, int index);
+void					ls_sort(char ***arr, int index);
 void					ls_len_sort(char ***arr);
 void					ls_base_sort(char ***arr);
 void					ls_big_s_sort(char ***arr);
 void					ls_time_sort(char ***arr, int i, int j);
-
 
 struct stat				*ls_get_stat(char **path);
 int						*ls_get_width(struct stat *stat_buf, int size);

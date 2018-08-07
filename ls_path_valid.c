@@ -51,7 +51,7 @@ int		ls_isdir(char *path)
 	return (1);
 }
 
-void			ls_print_permision_error(char *path)
+void	ls_print_permision_error(char *path)
 {
 	if (ft_strrchr(path, '/'))
 	{

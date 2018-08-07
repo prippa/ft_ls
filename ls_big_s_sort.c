@@ -1,7 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ls_big_s_sort.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: prippa <marvin@42.fr>                      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2018/08/07 14:55:47 by prippa            #+#    #+#             */
+/*   Updated: 2018/08/07 14:55:49 by prippa           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "ft_ls.h"
 
-void	 	ls_sort(char ***arr, int index)
+void		ls_sort(char ***arr, int index)
 {
 	char	*buf;
 
@@ -43,7 +54,7 @@ void		ls_big_s_sort(char ***arr)
 			if (file_stat[j].st_size < file_stat[j + 1].st_size)
 				ls_big_s_sort_algo(arr, file_stat, j);
 			else if (file_stat[j].st_size == file_stat[j + 1].st_size)
-				if(ft_strcmp((*arr)[j], (*arr)[j + 1]) > 0)
+				if (ft_strcmp((*arr)[j], (*arr)[j + 1]) > 0)
 					ls_big_s_sort_algo(arr, file_stat, j);
 			j++;
 		}

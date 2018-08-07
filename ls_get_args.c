@@ -103,7 +103,7 @@ int				ls_get_args(t_lspath *pth, char **argv)
 	{
 		ft_putstr_fd("ls: illegal option -- ", 2);
 		ft_putchar_fd(PJ, 2);
-		ft_putstr_fd("\nusage: ls [-AGRSalrtvy1] [file ...]\n", 2);
+		ft_putstr_fd("\nusage: ./ft_ls [-AGRSalrtvy1] [file ...]\n", 2);
 		return (0);
 	}
 	ls_get_path(pth, argv);
