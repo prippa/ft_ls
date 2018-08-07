@@ -14,7 +14,7 @@ oldest first, as appropriate.
 * -1 : Forces output into one-entry-per-line format. This is the default
 when the output is not directed to a terminal.
 * -A : Lists all entries except . (dot) and .. (dot-dot).
-* -S : Sorts by size in kilobytes.
+* -S : Sort the list of files by size in kilobytes.
 ***
 ### My own
 * -G : Iridescent illumination of files.
