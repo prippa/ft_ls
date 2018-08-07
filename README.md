@@ -25,10 +25,10 @@ when the output is not directed to a terminal.
 ``usage: ./ft_ls [-AGRSalrtvy1] [file ...]``
 
 ## Example of some flags
-### -l : 
+### -l : Same as original
 ![](https://thumbs.gfycat.com/OptimisticYellowishCatbird-size_restricted.gif)
 ***
-### -R : 
+### -R : Same as original
 ![](https://thumbs.gfycat.com/ReflectingMeekGadwall-size_restricted.gif)
 ***
 ### -G : My special bonus, just for fun :)
