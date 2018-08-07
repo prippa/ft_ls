@@ -5,28 +5,29 @@
 
 ## Implemented flags
 ### Originals
-* -l : 
-* -R : 
-* -a : 
-* -r : 
-* -t : 
-* -1 : 
-* -A : 
-* -S : 
+* -l : Long format, displaying Unix file types, permissions, number of hard links, owner, group, size, last-modified date and filename.
+* -R : Recursively lists subdirectories. The command ``ls -R /`` would therefore list all files.
+* -a : Lists all files in the given directory, including those whose names start with "." (which are hidden files in Unix). By default, these files are excluded from the list.
+* -r : Reverses the order of the sort, giving reverse alphabetic or the
+oldest first, as appropriate.
+* -t : Sort the list of files by modification time.
+* -1 : Forces output into one-entry-per-line format. This is the default
+when the output is not directed to a terminal.
+* -A : Lists all entries except . (dot) and .. (dot-dot).
+* -S : Sorts by size in kilobytes.
 ***
 ### My own
-* -G : 
-* -v : 
-* -y : 
+* -G : Iridescent illumination of files.
+* -v : prints count of all objects in directory
+* -y : Sort by object name size from lowest to biggest
 
 ## Example of some flags
-### -l
+### -l : Here some example original & mine
 ![](https://thumbs.gfycat.com/OptimisticYellowishCatbird-size_restricted.gif)
 ***
-### -R
+### -R : Here some example original & mine
 ![](https://thumbs.gfycat.com/ReflectingMeekGadwall-size_restricted.gif)
 ***
-### -G
+### -G : My special bonus, just for fun :)
 ![](https://thumbs.gfycat.com/BiodegradableIllustriousComet-size_restricted.gif)
-***
 [more info](https://github.com/prippa/ft_ls/blob/master/ft_ls.en.pdf)
