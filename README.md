@@ -27,6 +27,6 @@
 ![](https://thumbs.gfycat.com/ReflectingMeekGadwall-size_restricted.gif)
 ***
 ### -G
-![](https://gfycat.com/ru/gifs/detail/BiodegradableIllustriousComet)
+![](https://thumbs.gfycat.com/BiodegradableIllustriousComet-size_restricted.gif)
 ***
 [more info](https://github.com/prippa/ft_ls/blob/master/ft_ls.en.pdf)
