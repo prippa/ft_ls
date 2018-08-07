@@ -21,11 +21,14 @@ when the output is not directed to a terminal.
 * -v : prints count of all objects in directory
 * -y : Sort by object name size from lowest to biggest
 
+## Usage
+``usage: ./ft_ls [-AGRSalrtvy1] [file ...]``
+
 ## Example of some flags
-### -l : Here some example original vs mine
+### -l : 
 ![](https://thumbs.gfycat.com/OptimisticYellowishCatbird-size_restricted.gif)
 ***
-### -R : Here some example original vs mine
+### -R : 
 ![](https://thumbs.gfycat.com/ReflectingMeekGadwall-size_restricted.gif)
 ***
 ### -G : My special bonus, just for fun :)
