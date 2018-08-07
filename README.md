@@ -22,10 +22,10 @@ when the output is not directed to a terminal.
 * -y : Sort by object name size from lowest to biggest
 
 ## Example of some flags
-### -l : Here some example original & mine
+### -l : Here some example original vs mine
 ![](https://thumbs.gfycat.com/OptimisticYellowishCatbird-size_restricted.gif)
 ***
-### -R : Here some example original & mine
+### -R : Here some example original vs mine
 ![](https://thumbs.gfycat.com/ReflectingMeekGadwall-size_restricted.gif)
 ***
 ### -G : My special bonus, just for fun :)
