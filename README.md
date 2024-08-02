@@ -26,11 +26,11 @@ when the output is not directed to a terminal.
 
 ## Example of some flags
 ### -l : Same as original
-![](https://thumbs.gfycat.com/OptimisticYellowishCatbird-size_restricted.gif)
+![](https://github.com/prippa/my-projects-media/blob/main/ft_ls/OptimisticYellowishCatbird-size_restricted.png)
 ***
 ### -R : Same as original
-![](https://thumbs.gfycat.com/ReflectingMeekGadwall-size_restricted.gif)
+![](https://github.com/prippa/my-projects-media/blob/main/ft_ls/recursive.png)
 ***
 ### -G : My special bonus, just for fun :)
-![](https://thumbs.gfycat.com/BiodegradableIllustriousComet-size_restricted.gif)
+![](https://github.com/prippa/my-projects-media/blob/main/ft_ls/BiodegradableIllustriousComet-size_restricted.png)
 [more info](https://github.com/prippa/ft_ls/blob/master/ft_ls.en.pdf)
